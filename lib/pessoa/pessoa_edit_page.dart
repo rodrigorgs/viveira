@@ -14,33 +14,38 @@ class PessoaEditPage extends ConsumerStatefulWidget {
 class _PessoaEditPageState extends ConsumerState<PessoaEditPage> {
   get isNewPessoa => widget.pessoaId == null;
   Pessoa? pessoa;
-  late final TextEditingController _titleController;
+  late final TextEditingController _nomeController;
+  late final TextEditingController _cpfController;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _titleController = TextEditingController();
+    _nomeController = TextEditingController();
+    _cpfController = TextEditingController();
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
+    _nomeController.dispose();
+    _cpfController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final pessoaAsync = ref.watch(pessoaEditControllerProvider(widget.pessoaId));
+    final pessoaAsync =
+        ref.watch(pessoaEditControllerProvider(widget.pessoaId));
 
     if (pessoa == null && pessoaAsync.hasValue) {
       pessoa = pessoaAsync.value!.copyWith();
-      _titleController.text = pessoa!.title;
+      _nomeController.text = pessoa!.nome;
+      _cpfController.text = pessoa!.cpf;
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${isNewPessoa ? "New" : "Edit"} Pessoa'),
+        title: Text('${isNewPessoa ? "Adicionar" : "Editar"} Pessoa'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -62,29 +67,36 @@ class _PessoaEditPageState extends ConsumerState<PessoaEditPage> {
           children: [
             TextFormField(
               autofocus: true,
-              controller: _titleController,
+              controller: _nomeController,
               decoration: const InputDecoration(
-                labelText: 'Pessoa title',
+                labelText: 'Nome completo',
                 border: OutlineInputBorder(),
               ),
               onChanged: (value) {
-                pessoa = pessoa!.copyWith(title: value);
+                pessoa = pessoa!.copyWith(nome: value);
               },
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return 'Please enter a title';
+                  return 'Campo obrigatório';
                 }
                 return null;
               },
             ),
-            CheckboxListTile(
-              title: const Text('Is completed'),
-              value: pessoa!.isCompleted,
-              controlAffinity: ListTileControlAffinity.leading,
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _cpfController,
+              decoration: const InputDecoration(
+                labelText: 'CPF',
+                border: OutlineInputBorder(),
+              ),
               onChanged: (value) {
-                setState(() {
-                  pessoa = pessoa!.copyWith(isCompleted: value!);
-                });
+                pessoa = pessoa!.copyWith(cpf: value);
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo obrigatório';
+                }
+                return null;
               },
             ),
             const SizedBox(height: 16),

@@ -8,13 +8,14 @@ part 'pessoa.g.dart';
 class Pessoa with _$Pessoa {
   const factory Pessoa({
     String? id,
-    required String title,
-    @Default(false) bool isCompleted,
+    required String nome,
+    required String cpf,
   }) = _Pessoa;
 
   factory Pessoa.empty() => const Pessoa(
         id: null,
-        title: '',
+        nome: '',
+        cpf: '',
       );
 
   factory Pessoa.fromJson(Map<String, dynamic> json) => _$PessoaFromJson(json);

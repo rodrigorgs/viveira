@@ -16,7 +16,7 @@ class PessoaListPage extends ConsumerWidget {
     final pessoaList = ref.watch(pessoaListControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pessoa List'),
+        title: const Text('Pessoas'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -55,7 +55,7 @@ class PessoaListPage extends ConsumerWidget {
   Widget? _buildPessoaList(WidgetRef ref, List<Pessoa> list) {
     if (list.isEmpty) {
       return const Center(
-        child: Text('No pessoas found'),
+        child: Text('Nenhuma pessoa cadastrada'),
       );
     } else {
       return ListView.builder(
@@ -63,8 +63,7 @@ class PessoaListPage extends ConsumerWidget {
         itemBuilder: (context, index) {
           Pessoa pessoa = list[index];
           return ListTile(
-            title: Text(pessoa.title),
-            subtitle: Text(pessoa.isCompleted ? 'Completed' : 'Not completed'),
+            title: Text(pessoa.nome),
             trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {

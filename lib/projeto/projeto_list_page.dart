@@ -16,7 +16,7 @@ class ProjetoListPage extends ConsumerWidget {
     final projetoList = ref.watch(projetoListControllerProvider);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Projeto List'),
+        title: const Text('Projetos'),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -55,7 +55,7 @@ class ProjetoListPage extends ConsumerWidget {
   Widget? _buildProjetoList(WidgetRef ref, List<Projeto> list) {
     if (list.isEmpty) {
       return const Center(
-        child: Text('No projetos found'),
+        child: Text('Nenhum projeto cadastrado'),
       );
     } else {
       return ListView.builder(
@@ -63,8 +63,8 @@ class ProjetoListPage extends ConsumerWidget {
         itemBuilder: (context, index) {
           Projeto projeto = list[index];
           return ListTile(
-            title: Text(projeto.title),
-            subtitle: Text(projeto.isCompleted ? 'Completed' : 'Not completed'),
+            title: Text(projeto.titulo),
+            subtitle: Text(projeto.estudanteNome ?? ''),
             trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {
