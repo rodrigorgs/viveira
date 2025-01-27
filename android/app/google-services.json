@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588529717913",
+    "project_id": "viveira-ufba",
+    "storage_bucket": "viveira-ufba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588529717913:android:20020ecc893c6065d55e08",
+        "android_client_info": {
+          "package_name": "com.rodenapps.viveira"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApNtmkq_04Ol6Vz30DxXgExZKKuaoDuMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
