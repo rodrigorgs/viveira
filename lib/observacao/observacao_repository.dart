@@ -20,7 +20,10 @@ class ObservacaoRepository {
   }
 
   Future<List<Observacao>> find() async {
-    final snapshot = await _firestore.collection('observacoes').get();
+    final snapshot = await _firestore
+        .collection('observacoes')
+        .orderBy('timestamp', descending: true)
+        .get();
     return snapshot.docs.map((doc) => Observacao.fromDocument(doc)).toList();
   }
 

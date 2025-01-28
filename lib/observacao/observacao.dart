@@ -10,7 +10,7 @@ class Observacao with _$Observacao {
     String? id,
     required String descricao,
     required String categoria,
-    required Map<String, bool> envolvidosId, // pessoa
+    required Map<String, bool> envolvidosIds, // pessoa
     required DateTime timestamp,
     required String autorId, // pessoa
     String? anexo,
@@ -20,7 +20,7 @@ class Observacao with _$Observacao {
         id: null,
         descricao: '',
         categoria: '',
-        envolvidosId: {},
+        envolvidosIds: {},
         timestamp: DateTime.now(),
         autorId: '',
       );

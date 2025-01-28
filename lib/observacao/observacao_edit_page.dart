@@ -162,13 +162,13 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
                   MaterialPageRoute(
                     builder: (context) => PessoaSelectPage(
                         selectedPessoaIds:
-                            observacao!.envolvidosId.keys.toSet(),
+                            observacao!.envolvidosIds.keys.toSet(),
                         onChangeSelection: (value) {
                           setState(() {
                             final newEnvolvidos = Map.fromEntries(
                                 value.map((id) => MapEntry(id, true)));
                             observacao = observacao!
-                                .copyWith(envolvidosId: newEnvolvidos);
+                                .copyWith(envolvidosIds: newEnvolvidos);
                           });
                         }),
                   ),
@@ -186,7 +186,7 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
                       return const Text('Nenhuma pessoa cadastrada');
                     } else {
                       final selectedPessoas = pessoas
-                          .where((pessoa) => observacao!.envolvidosId
+                          .where((pessoa) => observacao!.envolvidosIds
                               .containsKey(pessoa.id ?? ''))
                           .toList();
                       return Wrap(

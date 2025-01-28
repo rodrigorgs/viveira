@@ -64,7 +64,7 @@ class ObservacaoListPage extends ConsumerWidget {
           Observacao observacao = list[index];
           return ListTile(
             title: Text(observacao.descricao),
-            subtitle: Text(observacao.autorId),
+            subtitle: Text(observacao.timestamp.toString()),
             trailing: IconButton(
               icon: const Icon(Icons.delete),
               onPressed: () {

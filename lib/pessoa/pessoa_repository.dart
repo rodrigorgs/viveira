@@ -20,14 +20,21 @@ class PessoaRepository {
   }
 
   Future<List<Pessoa>> find() async {
-    final snapshot = await _firestore.collection('pessoas').get();
+    final snapshot =
+        await _firestore.collection('pessoas').orderBy('nome').get();
     return snapshot.docs.map((doc) => Pessoa.fromDocument(doc)).toList();
   }
 
   Future<Pessoa> insert(Pessoa pessoa) async {
-    final pessoaData = pessoa.toJson()..remove('id');
-    final docRef = await _firestore.collection('pessoas').add(pessoaData);
-    return pessoa.copyWith(id: docRef.id);
+    if (pessoa.id == null) {
+      final pessoaData = pessoa.toJson()..remove('id');
+      final docRef = await _firestore.collection('pessoas').add(pessoaData);
+      return pessoa.copyWith(id: docRef.id);
+    } else {
+      final pessoaData = pessoa.toJson();
+      await _firestore.collection('pessoas').doc(pessoa.id).set(pessoaData);
+      return pessoa;
+    }
   }
 
   Future<void> update(String id, Pessoa pessoa) async {
