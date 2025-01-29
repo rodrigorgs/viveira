@@ -74,6 +74,8 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
           children: [
             TextFormField(
               autofocus: true,
+              minLines: 3,
+              maxLines: 5,
               controller: _descricaoController,
               decoration: const InputDecoration(
                 labelText: 'Descrição',
