@@ -107,6 +107,24 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
               },
             ),
             const SizedBox(height: 16),
+            TextFormField(
+              controller: _timestampController,
+              decoration: const InputDecoration(
+                labelText: 'Data/hora',
+                border: OutlineInputBorder(),
+              ),
+              onChanged: (value) {
+                observacao =
+                    observacao!.copyWith(timestamp: DateTime.parse(value));
+              },
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Campo obrigatório';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
             _buildParticipantes(context),
             const SizedBox(height: 16),
             _buildButtonBar(ref, context),
