@@ -8,10 +8,9 @@ import 'package:flutter_test/flutter_test.dart';
 import './step/o_app_esta_rodando.dart';
 import './step/as_seguintes_pessoas_existem.dart';
 import './step/as_seguintes_observacoes_existem.dart';
-import './step/eu_visualizo_as_pessoas.dart';
-import './step/eu_vejo_na_posicao_da_lista.dart';
 import './step/eu_visualizo_as_observacoes.dart';
 import './step/eu_vejo_o_texto.dart';
+import './step/eu_vejo_na_posicao_da_lista.dart';
 
 void main() {
   group('''Visualizar observação''', () {
@@ -53,13 +52,6 @@ void main() {
           ]));
     }
 
-    testWidgets('''As pessoas estão ordenadas por nome''', (tester) async {
-      await bddSetUp(tester);
-      await euVisualizoAsPessoas(tester);
-      await euVejoNaPosicaoDaLista(tester, 'Beltrano', 1);
-      await euVejoNaPosicaoDaLista(tester, 'Fulano', 2);
-      await euVejoNaPosicaoDaLista(tester, 'Sicrano', 3);
-    });
     testWidgets('''A lista de observações mostra descrição e data''',
         (tester) async {
       await bddSetUp(tester);

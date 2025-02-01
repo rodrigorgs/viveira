@@ -7,3 +7,14 @@ getRiverpodRef(WidgetTester tester) {
   final ref = ProviderScope.containerOf(elem);
   return ref;
 }
+
+findTextFieldByLabel(WidgetTester tester, String key) {
+  final textField = find.byWidgetPredicate((widget) {
+    if (widget is TextField) {
+      final decoration = widget.decoration as InputDecoration;
+      return decoration.labelText == key;
+    }
+    return false;
+  });
+  return textField;
+}

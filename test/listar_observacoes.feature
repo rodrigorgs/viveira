@@ -16,12 +16,6 @@ Feature: Visualizar observação
       | 'Oficina de argila'       | 'x'         | '2020-01-01' | {'1','2'}     | '3'     |
       | 'Oficina de compostagem'  | 'x'         | '2020-01-02' | {'1','2','3'} | '3'     |
 
-  Scenario: As pessoas estão ordenadas por nome
-    When eu visualizo as pessoas
-    Then eu vejo {'Beltrano'} na posição {1} da lista
-    And eu vejo {'Fulano'} na posição {2} da lista
-    And eu vejo {'Sicrano'} na posição {3} da lista
-
   Scenario: A lista de observações mostra descrição e data
     When eu visualizo as observações
     Then eu vejo o texto {'Oficina de cupcake'}

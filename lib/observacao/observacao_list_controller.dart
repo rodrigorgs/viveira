@@ -38,6 +38,7 @@ class ObservacaoListController extends _$ObservacaoListController {
         return false;
       }
       if (filter.categoria != null &&
+          filter.categoria!.isNotEmpty &&
           observacao.categoria != filter.categoria) {
         return false;
       }
