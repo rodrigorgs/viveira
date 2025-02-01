@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viveira/observacao/observacao_edit_page.dart';
+import 'package:viveira/observacao/observacao_filter.dart';
 import 'package:viveira/observacao/observacao_list_controller.dart';
 import 'package:viveira/observacao/observacao.dart';
 
@@ -14,24 +15,40 @@ class ObservacaoListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final observacaoList = ref.watch(observacaoListControllerProvider);
+    final observacaoFilter = ref.watch(observacaoFilterControllerProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Observações'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final saved = await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const ObservacaoEditPage(
-                observacaoId: null,
-              ),
-            ),
-          );
-          if (saved == true) {
-            _onUpdate(ref);
-          }
-        },
-        child: const Icon(Icons.add),
+        actions: [
+          Builder(builder: (context) {
+            return IconButton(
+              icon: Icon(observacaoFilter.isEmpty
+                  ? Icons.filter_alt_off
+                  : Icons.filter_alt),
+              onPressed: () {
+                showBottomSheet(
+                  context: context,
+                  builder: (context) => const ObservacaoFilterWidget(),
+                );
+              },
+            );
+          }),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              final saved = await Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const ObservacaoEditPage(
+                    observacaoId: null,
+                  ),
+                ),
+              );
+              if (saved == true) {
+                _onUpdate(ref);
+              }
+            },
+          ),
+        ],
       ),
       body: Center(
         child: observacaoList.when(
