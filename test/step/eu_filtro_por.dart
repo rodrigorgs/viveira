@@ -15,8 +15,6 @@ Future<void> euFiltroPor(WidgetTester tester, bdd.DataTable dataTable) async {
 
   for (final row in dataTable.asMaps()) {
     for (final entry in row.entries) {
-      print(entry.key);
-      print(entry.value);
       final textField = findTextFieldByLabel(tester, entry.key);
       await tester.enterText(textField, entry.value);
     }
