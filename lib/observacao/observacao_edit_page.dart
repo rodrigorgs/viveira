@@ -4,6 +4,7 @@ import 'package:viveira/observacao/observacao.dart';
 import 'package:viveira/observacao/observacao_edit_controller.dart';
 import 'package:viveira/pessoa/pessoa_list_controller.dart';
 import 'package:viveira/pessoa/pessoa_select_page.dart';
+import 'package:viveira/today_provider.dart';
 
 class ObservacaoEditPage extends ConsumerStatefulWidget {
   final String? observacaoId;
@@ -120,8 +121,13 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
                     observacao!.copyWith(timestamp: DateTime.parse(value));
               },
               validator: (value) {
-                if (value == null || value.isEmpty) {
+                final time = DateTime.tryParse(value ?? '');
+                if (time == null) {
                   return 'Campo obrigatório';
+                }
+                final now = ref.read(todayFunctionProvider)();
+                if (time.isAfter(now)) {
+                  return 'Data inválida: data futura não permitida';
                 }
                 return null;
               },
@@ -142,14 +148,14 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
       children: [
         ElevatedButton(
           onPressed: _save,
-          child: Text(isNewObservacao ? 'Create' : 'Save'),
+          child: Text(isNewObservacao ? 'Criar' : 'Salvar'),
         ),
         const SizedBox(width: 16),
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop(false);
             },
-            child: const Text('Cancel')),
+            child: const Text('Cancelar')),
       ],
     );
   }

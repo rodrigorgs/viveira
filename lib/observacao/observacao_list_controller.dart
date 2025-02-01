@@ -44,7 +44,7 @@ class ObservacaoListController extends _$ObservacaoListController {
       }
       if (filter.timestamp != null &&
           !formatter
-              .format(observacao.timestamp)
+              .format(observacao.timestamp!)
               .contains(formatter.format(filter.timestamp!))) {
         return false;
       }

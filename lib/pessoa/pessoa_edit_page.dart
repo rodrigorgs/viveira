@@ -1,3 +1,4 @@
+import 'package:cpf_util/cpf_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:viveira/pessoa/pessoa.dart';
@@ -79,6 +80,10 @@ class _PessoaEditPageState extends ConsumerState<PessoaEditPage> {
                 if (value == null || value.isEmpty) {
                   return 'Campo obrigatório';
                 }
+                // return 'Error' if value contains a number
+                if (RegExp(r'\d').hasMatch(value)) {
+                  return 'Nome inválido';
+                }
                 return null;
               },
             ),
@@ -95,6 +100,9 @@ class _PessoaEditPageState extends ConsumerState<PessoaEditPage> {
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Campo obrigatório';
+                }
+                if (CPFUtil().validate(value) == false) {
+                  return 'CPF inválido';
                 }
                 return null;
               },
@@ -113,14 +121,14 @@ class _PessoaEditPageState extends ConsumerState<PessoaEditPage> {
       children: [
         ElevatedButton(
           onPressed: _save,
-          child: Text(isNewPessoa ? 'Create' : 'Save'),
+          child: Text(isNewPessoa ? 'Criar' : 'Salvar'),
         ),
         const SizedBox(width: 16),
         ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop(false);
             },
-            child: const Text('Cancel')),
+            child: const Text('Cancelar')),
       ],
     );
   }

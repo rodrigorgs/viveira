@@ -238,6 +238,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  cpf_util:
+    dependency: "direct main"
+    description:
+      name: cpf_util
+      sha256: "93098eee5c626c344f227a1474b4344fe6609f73011bbcba13f3394f7e911168"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   crypto:
     dependency: transitive
     description:

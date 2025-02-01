@@ -1,6 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:viveira/observacao/observacao.dart';
 import 'package:viveira/observacao/observacao_repository.dart';
+import 'package:viveira/today_provider.dart';
 
 part 'observacao_edit_controller.g.dart';
 
@@ -9,14 +10,22 @@ class ObservacaoEditController extends _$ObservacaoEditController {
   @override
   Future<Observacao> build(String? observacaoId) async {
     if (observacaoId == null) {
-      return Future.value(Observacao.empty());
+      return Future.value(_withCurrentTimestamp(Observacao.empty()));
     } else {
-      final observacao = await ref.read(observacaoRepositoryProvider).findById(observacaoId);
+      final observacao =
+          await ref.read(observacaoRepositoryProvider).findById(observacaoId);
       if (observacao == null) {
         throw Exception('Observacao not found');
       }
+      return _withCurrentTimestamp(observacao);
+    }
+  }
+
+  Observacao _withCurrentTimestamp(Observacao observacao) {
+    if (observacao.timestamp != null) {
       return observacao;
     }
+    return observacao.copyWith(timestamp: ref.read(todayFunctionProvider)());
   }
 
   Future<void> updateState(Observacao observacao) async {

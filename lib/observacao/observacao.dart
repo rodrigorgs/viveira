@@ -11,17 +11,16 @@ class Observacao with _$Observacao {
     required String descricao,
     required String categoria,
     required Map<String, bool> envolvidosIds, // pessoa
-    required DateTime timestamp,
+    DateTime? timestamp,
     required String autorId, // pessoa
     String? anexo,
   }) = _Observacao;
 
-  factory Observacao.empty() => Observacao(
+  factory Observacao.empty() => const Observacao(
         id: null,
         descricao: '',
         categoria: '',
         envolvidosIds: {},
-        timestamp: DateTime.now(),
         autorId: '',
       );
 
