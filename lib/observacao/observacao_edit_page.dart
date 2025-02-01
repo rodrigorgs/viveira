@@ -174,7 +174,7 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
       children: [
         const Text('Envolvidos:'),
         Row(
-          mainAxisSize: MainAxisSize.max,
+          mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton.icon(
               onPressed: () {
@@ -209,15 +209,18 @@ class _ObservacaoEditPageState extends ConsumerState<ObservacaoEditPage> {
                           .where((pessoa) => observacao!.envolvidosIds
                               .containsKey(pessoa.id ?? ''))
                           .toList();
-                      return Wrap(
-                        spacing: 8,
-                        children: selectedPessoas
-                            .map(
-                              (pessoa) => Chip(
-                                label: Text(pessoa.nome),
-                              ),
-                            )
-                            .toList(),
+                      return Expanded(
+                        child: Wrap(
+                          spacing: 4,
+                          runSpacing: 4,
+                          children: selectedPessoas
+                              .map(
+                                (pessoa) => Chip(
+                                  label: Text(pessoa.nome),
+                                ),
+                              )
+                              .toList(),
+                        ),
                       );
                     }
                   },
